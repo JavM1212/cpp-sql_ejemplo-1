@@ -119,6 +119,54 @@ void db::read_estudiantes() {
 	db::closeDatabase(obj); // cerrar la db
 }
 
+void db::read_estudiante() {
+    MYSQL *obj = db::connectToDatabase("universidad");
+    MYSQL_ROW row; // aca se va a guardar el record obtenido
+    char Carne[7];
+
+    if (!obj) {
+        return;
+    } else {
+        cout << "Carne: ";
+        cin.getline(Carne, sizeof(Carne), '\n');
+
+        string query = "SELECT * FROM estudiante WHERE Carne = '" + string(Carne) + "'"; // construir la query
+
+        if (mysql_ping(obj)) {
+            cout << "ERROR: " << mysql_errno(obj) << " - " << mysql_error(obj) << endl;
+        }
+
+        if (mysql_query(obj, query.c_str())) { // ejecutar query
+            cout << "ERROR: " << mysql_errno(obj) << " - " << mysql_error(obj) << endl;
+            rewind(stdin);
+            getchar();
+        } else {
+            MYSQL_RES *result = mysql_store_result(obj);
+            if (result == NULL) {
+                cout << "ERROR: " << mysql_errno(obj) << " - " << mysql_error(obj) << endl;
+                rewind(stdin);
+                getchar();
+            } else {
+                row = mysql_fetch_row(result);
+                if (row != NULL) {
+                    cout << "Estudiante found: " << endl;
+                    for (int i = 0; i < mysql_num_fields(result); i++) {
+                        cout << row[i] << " ";
+                    }
+                    cout << endl << endl;
+                } else {
+                    cout << endl << "No se encontro ningun estudiante con ese carne" << endl << endl;
+                }
+
+                mysql_free_result(result);
+            }
+        }
+    }
+
+    db::closeDatabase(obj);
+}
+
+
 void db::update_estudiante() {
     MYSQL *obj = db::connectToDatabase("universidad");
     char Carne[7];

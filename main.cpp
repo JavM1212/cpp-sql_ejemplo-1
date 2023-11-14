@@ -14,9 +14,10 @@ void display_options() {
 	cout << "Universidad CRUD" << endl;
     cout << "1. Create Estudiante" << endl;
     cout << "2. Read Estudiantes" << endl;
-    cout << "3. Update Estudiante" << endl;
-    cout << "4. Delete Estudiante" << endl;
-    cout << "5. Exit" << endl;
+    cout << "3. Read Estudiante" << endl;
+    cout << "4. Update Estudiante" << endl;
+    cout << "5. Delete Estudiante" << endl;
+    cout << "6. Exit" << endl;
 }
 
 void menu_logic() {
@@ -38,16 +39,19 @@ void menu_logic() {
 				DB.read_estudiantes();
 				break;
 			case 3:
-				DB.update_estudiante();
+				DB.read_estudiante();
 				break;
 			case 4:
-				DB.delete_estudiante();
+				DB.update_estudiante();
 				break;
 			case 5:
+				DB.delete_estudiante();
+				break;
+			case 6:
 				cout << "Saliendo de la DB" << endl;
 			default:
 				cout << "Opcion invalida, intente de nuevo: ";
 		}
-	} while (op != 5);
+	} while (op != 6);
 }
 

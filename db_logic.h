@@ -12,6 +12,7 @@ class db {
 		
 		void create_estudiante();	// C (create)
 		void read_estudiantes();	// R (read)
+		void read_estudiante();	// R (read)
 		void update_estudiante();	// U (update)
 		void delete_estudiante();	// D (delete)
 };
