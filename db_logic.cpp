@@ -149,7 +149,7 @@ void db::read_estudiante() {
             } else {
                 row = mysql_fetch_row(result);
                 if (row != NULL) {
-                    cout << "Estudiante found: " << endl;
+                    cout << "Estudiante found: " << endl << endl;
                     for (int i = 0; i < mysql_num_fields(result); i++) {
                         cout << row[i] << " ";
                     }
